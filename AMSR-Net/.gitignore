@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large Checkpoints (Keep amsr_net_best.pth committed, ignore temporary checkpoints)
+weights/*.pth
+!weights/.gitkeep
+!weights/amsr_net_best.pth
+
+# Training logs
+logs/*
+!logs/.gitkeep
+
+# Output directories & test suites
+outputs/*
+!outputs/.gitkeep
+
+# IDE & OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
