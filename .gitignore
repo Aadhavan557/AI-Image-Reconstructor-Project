@@ -13,6 +13,7 @@ events.out.tfevents.*
 
 # Data & Output Artifacts
 dataset/
+!AMSR-Net/dataset/
 outputs/
 test images/
 benchmark_test_suite/
