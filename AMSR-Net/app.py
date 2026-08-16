@@ -265,7 +265,13 @@ def load_model() -> Tuple[Optional[AMSRNet], torch.device, str]:
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     gpu_name = torch.cuda.get_device_name(0) if device.type == "cuda" else "CPU"
 
-    ckpt_path = Path(cfg.BEST_MODEL_PATH)
+    # Resolve model path relative to this file so it works on Streamlit Cloud
+    # regardless of the working directory.
+    _script_dir = Path(__file__).resolve().parent
+    ckpt_path = _script_dir / "weights" / "amsr_net_best.pth"
+    # Fall back to config path (works locally)
+    if not ckpt_path.exists():
+        ckpt_path = Path(cfg.BEST_MODEL_PATH)
     if not ckpt_path.exists():
         return None, device, gpu_name
 
@@ -485,6 +491,22 @@ def render_sidebar(gpu_name: str, device: torch.device):
                     <span style="font-size:0.82rem;color:#e2e8f0;font-weight:600;">Device: {str(device).upper()}</span>
                 </div>
                 <div style="font-size:0.8rem;color:#94a3b8;padding-left:1.1rem;">{gpu_name}</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        # ── Dependency debug banner (visible on cloud if import issues occur) ──
+        import torchvision
+        import sys
+        st.markdown(
+            f"""
+            <div style="background:rgba(20,20,30,0.8);border:1px solid rgba(255,255,255,0.06);
+                        border-radius:10px;padding:0.65rem 0.9rem;margin-top:0.5rem;
+                        font-size:0.72rem;color:#475569;line-height:1.8;">
+                <b style="color:#64748b;">🐍 Runtime Info</b><br>
+                Python {sys.version.split()[0]}<br>
+                torch {torch.__version__}<br>
+                torchvision {torchvision.__version__}
             </div>
             """,
             unsafe_allow_html=True,
