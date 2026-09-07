@@ -1,12 +1,6 @@
 streamlit==1.41.1
 numpy
-pandas
-Pillow
-opencv-python-headless
 matplotlib
-scipy
-albumentations
-torch==2.1.2
-torchvision==0.16.2
-torchmetrics
-tqdm
+Pillow
+torch==2.6.0
+torchvision==0.21.0
