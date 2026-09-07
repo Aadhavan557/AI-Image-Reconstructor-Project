@@ -11,7 +11,6 @@ from utils.checkpoint import (
     latest_ckpt_path,
     epoch_ckpt_path,
 )
-from utils.trainer import Trainer
 
 __all__ = [
     "save_checkpoint",
@@ -21,3 +20,11 @@ __all__ = [
     "epoch_ckpt_path",
     "Trainer",
 ]
+
+
+def __getattr__(name):
+    if name == "Trainer":
+        from utils.trainer import Trainer
+
+        return Trainer
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
