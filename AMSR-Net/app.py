@@ -496,8 +496,6 @@ def render_sidebar(gpu_name: str, device: torch.device):
             unsafe_allow_html=True,
         )
         # ── Dependency debug banner (visible on cloud if import issues occur) ──
-        import torchvision
-        import sys
         st.markdown(
             f"""
             <div style="background:rgba(20,20,30,0.8);border:1px solid rgba(255,255,255,0.06);
@@ -506,7 +504,6 @@ def render_sidebar(gpu_name: str, device: torch.device):
                 <b style="color:#64748b;">🐍 Runtime Info</b><br>
                 Python {sys.version.split()[0]}<br>
                 torch {torch.__version__}<br>
-                torchvision {torchvision.__version__}
             </div>
             """,
             unsafe_allow_html=True,
