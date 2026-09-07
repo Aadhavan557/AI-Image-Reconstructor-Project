@@ -2,4 +2,4 @@ streamlit==1.41.1
 numpy
 matplotlib==3.10.8
 Pillow
-torch==2.1.2
+torch==2.9.0
